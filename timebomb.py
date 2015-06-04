@@ -4,7 +4,7 @@
 #
 # This script uses xidletime to calculate how long
 # you've been away from the computer. After a specified
-# amount of time it will send an email,
+# amount of time it will send an email.
 #
 
 import subprocess
