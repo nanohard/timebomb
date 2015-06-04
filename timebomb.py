@@ -1,8 +1,16 @@
+#!/usr/bin/env python3
+#
+# Created by Nanohard
+#
+# This script uses xidletime to calculate how long
+# you've been away from the computer. After a specified
+# amount of time it will send an email,
+#
+
 import subprocess
 from time import sleep
 import smtplib
 from email.mime.text import MIMEText
-import string
 import sys
 
 while True:
@@ -11,17 +19,17 @@ while True:
 
     if output > 600000000: # about 7 days
 
-        with open('/home/user/Desktop/user') as fp:
+        with open('/full/path/to/file') as fp:
             # Create a text/plain message
             file1 = MIMEText(fp.read())
 
-        HOST = "mail.posignite.com"
-        PORT = "587"
-        SUBJECT = "Shit went south"
-        TO = "nick@posignite.com"
-        FROM = "william@posignite.com"
+        HOST = "mail.example.com"   # mail server SMTP address
+        PORT = "587"                # mail server SMTP port
+        SUBJECT = "Time-bomb activated"
+        TO = "someone@example.com"
+        FROM = "me@example.com"
         text = str.join("\n", (
-                "Things went sideways, so here's my creds for everything, including my VPS and home computer SSH (LOCAL). ctrl+f is your friend:",
+                "Something happened to me, so here's the info I told you about:",
                 "%s" %file1
                 ))
         BODY = str.join("\n", (
@@ -35,14 +43,14 @@ while True:
             server = smtplib.SMTP(HOST, PORT)
             server.ehlo()
             server.starttls()
-            server.login('william@posignite.com', 'Ie7qeEagxoDnhpiIZ')
+            server.login('me@example.com', 'password')
             server.sendmail(FROM, [TO], BODY)
             server.quit()
-            print("Busted sent...")
+            print("Success! Email sent.")   # uncomment for testing
         except IOError as e:
             print("IOError:", e, e.args)
             sys.exit(1)
         else:
             sys.exit(1)
 
-    sleep(600)
+    sleep(600)  # check idle time every 10 minutes
